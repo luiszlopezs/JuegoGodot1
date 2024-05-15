@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cef1mcikrdjan"]
+
+[ext_resource type="Script" path="res://Scenes/caida_reinicio.gd" id="1_pnfap"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77d1a"]
+size = Vector2(4668.5, 149.5)
+
+[node name="caida_reinicio" type="Area2D"]
+scale = Vector2(2, 2)
+collision_mask = 16
+script = ExtResource("1_pnfap")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2208, 589.5)
+shape = SubResource("RectangleShape2D_77d1a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

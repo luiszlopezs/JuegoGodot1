@@ -1,0 +1,156 @@
+[gd_scene load_steps=5 format=3 uid="uid://durtq53exeya6"]
+
+[ext_resource type="Script" path="res://Scenes/Pantallas/PlayerInfo.gd" id="1_swoox"]
+[ext_resource type="PackedScene" uid="uid://nsdv54gdjuvp" path="res://Scenes/Pantallas/pantalla_inicio.tscn" id="2_7f62e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6hjr"]
+bg_color = Color(0.509804, 0.411765, 0.772549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgx63"]
+font_size = 29
+font_color = Color(0, 0, 0, 1)
+
+[node name="PlayerInfo" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_swoox")
+inicio = ExtResource("2_7f62e")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1156.0
+offset_bottom = 61.0
+color = Color(0.57115, 0.40523, 0.993075, 0.615686)
+
+[node name="health_ProgressBar" type="ProgressBar" parent="."]
+offset_left = 63.0
+offset_top = 18.0
+offset_right = 203.0
+offset_bottom = 45.0
+step = 1.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="health_ProgressBar"]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 1.0
+offset_right = 126.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 17
+text = "HP
+"
+
+[node name="fruitPointsLabel" type="Label" parent="."]
+offset_left = 259.0
+offset_top = 18.0
+offset_right = 374.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "Fruit Points : "
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_left = 1062.0
+offset_top = 12.0
+offset_right = 1136.0
+offset_bottom = 47.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_t6hjr")
+
+[node name="clock" type="Label" parent="."]
+offset_left = 1079.0
+offset_top = 18.0
+offset_right = 1119.0
+offset_bottom = 41.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="SECONDARY" type="ColorRect" parent="."]
+offset_left = 472.0
+offset_top = -4.0
+offset_right = 782.0
+offset_bottom = 61.0
+color = Color(0, 0.768627, 0, 1)
+
+[node name="Label" type="Label" parent="SECONDARY"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 14.0
+offset_right = 315.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "NINJA FROGGY RUN"
+
+[node name="MenuButton" type="Button" parent="."]
+offset_left = 1087.0
+offset_top = 12.0
+offset_right = 1138.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "menu"
+
+[node name="inicio" type="Button" parent="."]
+offset_left = 1024.0
+offset_top = 12.0
+offset_right = 1077.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "inicio"
+
+[node name="MenuPopUp" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MenuPopUp"]
+offset_left = 469.0
+offset_top = 170.0
+offset_right = 787.0
+offset_bottom = 405.0
+color = Color(0.262745, 0.34902, 0.784314, 1)
+
+[node name="Label" type="Label" parent="MenuPopUp"]
+offset_left = 533.0
+offset_top = 186.0
+offset_right = 726.0
+offset_bottom = 226.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Game Paused"
+label_settings = SubResource("LabelSettings_hgx63")
+
+[node name="Resume" type="Button" parent="MenuPopUp"]
+offset_left = 548.0
+offset_top = 252.0
+offset_right = 716.0
+offset_bottom = 300.0
+text = "Resume"
+
+[node name="Music" type="Button" parent="MenuPopUp"]
+visible = false
+offset_left = 546.0
+offset_top = 273.0
+offset_right = 714.0
+offset_bottom = 321.0
+text = "Music 100%"
+
+[node name="Sounds" type="Button" parent="MenuPopUp"]
+visible = false
+offset_left = 547.0
+offset_top = 355.0
+offset_right = 715.0
+offset_bottom = 403.0
+text = "Sounds 100%"
+
+[node name="Restart" type="Button" parent="MenuPopUp"]
+offset_left = 548.0
+offset_top = 313.0
+offset_right = 716.0
+offset_bottom = 361.0
+text = "Restart"
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="inicio" to="." method="_on_inicio_pressed"]
+[connection signal="pressed" from="MenuPopUp/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MenuPopUp/Music" to="." method="_on_music_pressed"]
+[connection signal="pressed" from="MenuPopUp/Sounds" to="." method="_on_sounds_pressed"]
+[connection signal="pressed" from="MenuPopUp/Restart" to="." method="_on_restart_pressed"]

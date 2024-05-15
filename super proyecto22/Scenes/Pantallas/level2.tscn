@@ -1,0 +1,195 @@
+[gd_scene load_steps=19 format=3 uid="uid://meg54ijc6ckq"]
+
+[ext_resource type="PackedScene" uid="uid://durtq53exeya6" path="res://Scenes/Pantallas/PlayerInfo.tscn" id="1_tvgq5"]
+[ext_resource type="PackedScene" uid="uid://dgpyi8mqnumd4" path="res://Scenes/Characters/ninja_frog.tscn" id="2_207tr"]
+[ext_resource type="PackedScene" uid="uid://05mapofs15fo" path="res://Scenes/Characters/shuriken.tscn" id="3_5e76v"]
+[ext_resource type="PackedScene" uid="uid://begt3eynmwuh6" path="res://Scenes/Pantallas/parallax_background.tscn" id="4_o3i3y"]
+[ext_resource type="PackedScene" uid="uid://b3jc0j4pfn1nx" path="res://Scenes/environment/escenario_2.tscn" id="5_4b70a"]
+[ext_resource type="AudioStream" uid="uid://bgf06ij3c524d" path="res://sounds/magical-wonderland-of-smiles-ai-205292.mp3" id="7_xbvme"]
+[ext_resource type="Script" path="res://Scenes/Pantallas/audio_fondo.gd" id="8_e35b2"]
+[ext_resource type="PackedScene" uid="uid://dvhkibouqygeq" path="res://Scenes/environment/finish.tscn" id="9_7xhwv"]
+[ext_resource type="PackedScene" uid="uid://nsdv54gdjuvp" path="res://Scenes/Pantallas/pantalla_inicio.tscn" id="9_bgvfv"]
+[ext_resource type="PackedScene" uid="uid://b0ey6t3n7yj77" path="res://Scenes/Enemies/enemyplayer.tscn" id="10_t8n6m"]
+[ext_resource type="PackedScene" uid="uid://d2rg83ictqtiw" path="res://Scenes/Enemies/saw.tscn" id="11_pkyaf"]
+[ext_resource type="PackedScene" uid="uid://cag8bhrjo874i" path="res://Scenes/Enemies/spike_ball.tscn" id="12_wvkay"]
+[ext_resource type="PackedScene" uid="uid://djpqlp8ch4nu8" path="res://Scenes/environment/portal.tscn" id="13_acwku"]
+[ext_resource type="PackedScene" uid="uid://c841due6beope" path="res://Scenes/environment/trampoline.tscn" id="14_iuj6g"]
+[ext_resource type="PackedScene" uid="uid://bx0cuuvxydu65" path="res://Scenes/environment/fruit.tscn" id="15_j5ugj"]
+[ext_resource type="PackedScene" uid="uid://cef1mcikrdjan" path="res://Scenes/caida_reinicio.tscn" id="16_emou2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ygi1r"]
+bg_color = Color(0.933333, 0, 0.65098, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_w73lv"]
+font_size = 27
+
+[node name="Screen_1" type="Node2D"]
+
+[node name="PlayerInfo" parent="." instance=ExtResource("1_tvgq5")]
+
+[node name="ninja_frog" parent="." instance=ExtResource("2_207tr")]
+position = Vector2(284, 454)
+
+[node name="shuriken" parent="." instance=ExtResource("3_5e76v")]
+position = Vector2(89, 537)
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("4_o3i3y")]
+
+[node name="tilemap2" parent="." instance=ExtResource("5_4b70a")]
+
+[node name="audio_fondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_xbvme")
+volume_db = -7.428
+autoplay = true
+script = ExtResource("8_e35b2")
+
+[node name="SceneObjects" type="Node" parent="."]
+
+[node name="Finish" parent="SceneObjects" instance=ExtResource("9_7xhwv")]
+position = Vector2(6160, 191)
+scale = Vector2(2, 2)
+target_level = ExtResource("9_bgvfv")
+
+[node name="enemies" type="Node" parent="."]
+
+[node name="enemyplayer" parent="enemies" instance=ExtResource("10_t8n6m")]
+position = Vector2(4208, 576)
+
+[node name="enemyplayer2" parent="enemies" instance=ExtResource("10_t8n6m")]
+position = Vector2(4430, 253)
+
+[node name="saw" parent="enemies" instance=ExtResource("11_pkyaf")]
+position = Vector2(4737, 573)
+
+[node name="saw2" parent="enemies" instance=ExtResource("11_pkyaf")]
+position = Vector2(5034, 575)
+
+[node name="saw3" parent="enemies" instance=ExtResource("11_pkyaf")]
+position = Vector2(5224, 573)
+
+[node name="saw4" parent="enemies" instance=ExtResource("11_pkyaf")]
+position = Vector2(5397, 572)
+
+[node name="saw5" parent="enemies" instance=ExtResource("11_pkyaf")]
+position = Vector2(4883, 575)
+
+[node name="SpikeBall" parent="enemies" instance=ExtResource("12_wvkay")]
+position = Vector2(4961, 323)
+
+[node name="SpikeBall2" parent="enemies" instance=ExtResource("12_wvkay")]
+position = Vector2(5248, 325)
+
+[node name="objects" type="Node" parent="."]
+
+[node name="portal2" parent="objects" instance=ExtResource("13_acwku")]
+position = Vector2(1706, 252)
+grupo = 4
+
+[node name="portal" parent="objects" instance=ExtResource("13_acwku")]
+position = Vector2(1333, 444)
+grupo = 4
+
+[node name="Trampoline" parent="objects" instance=ExtResource("14_iuj6g")]
+position = Vector2(5897, 578)
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 138.0
+offset_top = 321.0
+offset_right = 296.0
+offset_bottom = 371.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ygi1r")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -18.5
+offset_right = 49.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL 2"
+label_settings = SubResource("LabelSettings_w73lv")
+
+[node name="fruits" type="Node" parent="."]
+
+[node name="fruit17" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(5757, 576)
+fruitType = "cherry"
+
+[node name="fruit16" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(5661, 576)
+fruitType = "cherry"
+
+[node name="fruit15" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(5088, 423)
+fruitType = "cherry"
+
+[node name="fruit14" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(4291, 423)
+fruitType = "cherry"
+
+[node name="fruit13" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(4234, 423)
+fruitType = "cherry"
+
+[node name="fruit12" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(4177, 421)
+fruitType = "cherry"
+
+[node name="fruit11" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(3923, 544)
+fruitType = "cherry"
+
+[node name="fruit10" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(3829, 544)
+fruitType = "cherry"
+
+[node name="fruit9" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(3750, 543)
+fruitType = "cherry"
+
+[node name="fruit8" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(2883, 361)
+fruitType = "cherry"
+
+[node name="fruit7" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(2626, 430)
+fruitType = "cherry"
+
+[node name="fruit6" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(2400, 363)
+fruitType = "cherry"
+
+[node name="fruit5" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(2112, 432)
+fruitType = "cherry"
+
+[node name="fruit4" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(1193, 451)
+fruitType = "cherry"
+
+[node name="fruit3" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(1122, 453)
+fruitType = "cherry"
+
+[node name="fruit2" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(1055, 451)
+fruitType = "cherry"
+
+[node name="fruit" parent="fruits" instance=ExtResource("15_j5ugj")]
+position = Vector2(999, 454)
+fruitType = "cherry"
+
+[node name="caida_reinicio" parent="." instance=ExtResource("16_emou2")]
+position = Vector2(-580, -109)
+
+[connection signal="finished" from="audio_fondo" to="audio_fondo" method="_on_finished"]

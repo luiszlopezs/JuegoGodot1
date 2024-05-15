@@ -1,0 +1,283 @@
+[gd_scene load_steps=24 format=3 uid="uid://ncnkjduwmvf4"]
+
+[ext_resource type="PackedScene" uid="uid://dgpyi8mqnumd4" path="res://Scenes/Characters/ninja_frog.tscn" id="1_k7rx8"]
+[ext_resource type="PackedScene" uid="uid://cqthn1rtw5x6p" path="res://Scenes/environment/escenario_1.tscn" id="2_7nexe"]
+[ext_resource type="PackedScene" uid="uid://begt3eynmwuh6" path="res://Scenes/Pantallas/parallax_background.tscn" id="3_0f2l8"]
+[ext_resource type="PackedScene" uid="uid://d1ipwyi8coh57" path="res://Scenes/environment/moving_Platform_1.tscn" id="4_w5u38"]
+[ext_resource type="PackedScene" uid="uid://d2rg83ictqtiw" path="res://Scenes/Enemies/saw.tscn" id="5_j183n"]
+[ext_resource type="PackedScene" uid="uid://c841due6beope" path="res://Scenes/environment/trampoline.tscn" id="6_tuirp"]
+[ext_resource type="PackedScene" uid="uid://cag8bhrjo874i" path="res://Scenes/Enemies/spike_ball.tscn" id="7_8w8q0"]
+[ext_resource type="PackedScene" uid="uid://bx0cuuvxydu65" path="res://Scenes/environment/fruit.tscn" id="8_6n3ak"]
+[ext_resource type="PackedScene" uid="uid://durtq53exeya6" path="res://Scenes/Pantallas/PlayerInfo.tscn" id="9_ljmvk"]
+[ext_resource type="PackedScene" uid="uid://djpqlp8ch4nu8" path="res://Scenes/environment/portal.tscn" id="10_i43c8"]
+[ext_resource type="AudioStream" uid="uid://c4dxo3bo8xqhn" path="res://sounds/musicfondo.mp3" id="11_qdmee"]
+[ext_resource type="Script" path="res://Scenes/Pantallas/audio_fondo.gd" id="12_cwo4n"]
+[ext_resource type="PackedScene" uid="uid://05mapofs15fo" path="res://Scenes/Characters/shuriken.tscn" id="13_82srg"]
+[ext_resource type="PackedScene" uid="uid://dvhkibouqygeq" path="res://Scenes/environment/finish.tscn" id="15_pkwdq"]
+[ext_resource type="PackedScene" uid="uid://meg54ijc6ckq" path="res://Scenes/Pantallas/level2.tscn" id="16_d3wk1"]
+[ext_resource type="PackedScene" uid="uid://cef1mcikrdjan" path="res://Scenes/caida_reinicio.tscn" id="17_fh6it"]
+[ext_resource type="PackedScene" uid="uid://dq852v7hhl6t1" path="res://Scenes/Enemies/enemyplayer_2.tscn" id="17_iba0m"]
+
+[sub_resource type="Curve2D" id="Curve2D_i0v7f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2326, 328, -46.3475, -270.894, 46.3475, 270.894, 2625.64, 587)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_1qbro"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wtafx"]
+resource_name = "regular_move"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lol2n"]
+_data = {
+"RESET": SubResource("Animation_1qbro"),
+"regular_move": SubResource("Animation_wtafx")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3yd03"]
+bg_color = Color(1, 0, 0.0745098, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_tq2ts"]
+font_size = 27
+
+[node name="Screen_1" type="Node2D"]
+
+[node name="PlayerInfo" parent="." instance=ExtResource("9_ljmvk")]
+
+[node name="ninja_frog" parent="." instance=ExtResource("1_k7rx8")]
+position = Vector2(97, 482)
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_0f2l8")]
+scroll_offset = Vector2(-8501.75, -55)
+
+[node name="tilemap" parent="." instance=ExtResource("2_7nexe")]
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-37.8325, 0)
+scale = Vector2(1.01455, 1)
+curve = SubResource("Curve2D_i0v7f")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(2326, 328)
+rotates = false
+loop = false
+
+[node name="moving_Platform_1" parent="Path2D/PathFollow2D" instance=ExtResource("4_w5u38")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path2D/PathFollow2D"]
+libraries = {
+"": SubResource("AnimationLibrary_lol2n")
+}
+autoplay = "regular_move"
+speed_scale = 0.8
+
+[node name="enemies" type="Node" parent="."]
+
+[node name="saw" parent="enemies" instance=ExtResource("5_j183n")]
+position = Vector2(2453, 637)
+
+[node name="saw2" parent="enemies" instance=ExtResource("5_j183n")]
+position = Vector2(1791, 607)
+
+[node name="saw3" parent="enemies" instance=ExtResource("5_j183n")]
+position = Vector2(3133, 348)
+
+[node name="saw4" parent="enemies" instance=ExtResource("5_j183n")]
+position = Vector2(3521, 350)
+
+[node name="SpikeBall" parent="enemies" instance=ExtResource("7_8w8q0")]
+position = Vector2(4369, 449)
+
+[node name="SpikeBall2" parent="enemies" instance=ExtResource("7_8w8q0")]
+position = Vector2(4622, 388)
+
+[node name="SpikeBall3" parent="enemies" instance=ExtResource("7_8w8q0")]
+position = Vector2(4880, 420)
+
+[node name="SpikeBall4" parent="enemies" instance=ExtResource("7_8w8q0")]
+position = Vector2(5072, 356)
+
+[node name="enemyplayer2" parent="enemies" instance=ExtResource("17_iba0m")]
+position = Vector2(6929, 509)
+
+[node name="enemyplayer3" parent="enemies" instance=ExtResource("17_iba0m")]
+position = Vector2(7399, 509)
+
+[node name="objects_to_help" type="Node" parent="."]
+
+[node name="portal1" parent="objects_to_help" instance=ExtResource("10_i43c8")]
+position = Vector2(5734, 284)
+grupo = 0
+
+[node name="portal0" parent="objects_to_help" instance=ExtResource("10_i43c8")]
+position = Vector2(5720, 508)
+grupo = 0
+
+[node name="Trampoline" parent="objects_to_help" instance=ExtResource("6_tuirp")]
+position = Vector2(2827, 579)
+
+[node name="audio_fondo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_qdmee")
+volume_db = -7.428
+autoplay = true
+script = ExtResource("12_cwo4n")
+
+[node name="shuriken" parent="." instance=ExtResource("13_82srg")]
+position = Vector2(-538, 468)
+
+[node name="Finish" parent="." instance=ExtResource("15_pkwdq")]
+position = Vector2(8779, 351)
+scale = Vector2(2, 2)
+target_level = ExtResource("16_d3wk1")
+
+[node name="SceneObjects" type="Node" parent="."]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 38.0
+offset_top = 284.0
+offset_right = 196.0
+offset_bottom = 334.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3yd03")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -18.5
+offset_right = 49.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL 1"
+label_settings = SubResource("LabelSettings_tq2ts")
+
+[node name="fruits" type="Node" parent="."]
+
+[node name="fruit5" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4973, 521)
+
+[node name="fruit4" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4744, 524)
+
+[node name="fruit2" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4281, 525)
+
+[node name="fruit3" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4493, 521)
+
+[node name="fruit" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4197, 525)
+
+[node name="fruit6" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(638, 486)
+
+[node name="fruit7" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(862, 428)
+
+[node name="fruit8" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(1087, 358)
+
+[node name="fruit9" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(1279, 294)
+
+[node name="fruit24" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(7548, 314)
+
+[node name="fruit23" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(7265, 314)
+
+[node name="fruit22" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(6978, 308)
+
+[node name="fruit21" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(6554, 462)
+
+[node name="fruit20" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(6430, 394)
+
+[node name="fruit19" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(6500, 428)
+
+[node name="fruit18" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(6167, 352)
+
+[node name="fruit17" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4099, 513)
+
+[node name="fruit16" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(4001, 454)
+
+[node name="fruit15" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(3907, 383)
+
+[node name="fruit14" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(3810, 330)
+
+[node name="fruit13" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(3433, 324)
+
+[node name="fruit12" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(3258, 325)
+
+[node name="fruit11" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(2893, 259)
+
+[node name="fruit10" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(2205, 581)
+fruitType = "banana"
+
+[node name="fruit25" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(2187, 288)
+
+[node name="fruit26" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(2080, 290)
+
+[node name="fruit27" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(1983, 584)
+
+[node name="fruit28" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(1627, 580)
+
+[node name="fruit29" parent="fruits" instance=ExtResource("8_6n3ak")]
+position = Vector2(1351, 294)
+
+[node name="caida_reinicio" parent="." instance=ExtResource("17_fh6it")]
+position = Vector2(-445, -176)
+
+[connection signal="finished" from="audio_fondo" to="audio_fondo" method="_on_finished"]

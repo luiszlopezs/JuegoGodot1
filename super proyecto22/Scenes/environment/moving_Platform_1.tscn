@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1ipwyi8coh57"]
+
+[ext_resource type="Script" path="res://Scenes/environment/moving_Platform_1.gd" id="1_5fgsg"]
+[ext_resource type="Texture2D" uid="uid://ca8chn3ewqt5y" path="res://Pixel Adventure 1/Free/Terrain/Terrain (16x16).png" id="1_r5xvv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aeir0"]
+size = Vector2(48, 5)
+
+[node name="moving_Platform_1" type="AnimatableBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_5fgsg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_aeir0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Terrain(16x16)" type="Sprite2D" parent="."]
+texture = ExtResource("1_r5xvv")
+region_enabled = true
+region_rect = Rect2(272, 0, 48, 8)

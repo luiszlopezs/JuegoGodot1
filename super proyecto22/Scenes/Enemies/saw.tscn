@@ -1,0 +1,140 @@
+[gd_scene load_steps=19 format=3 uid="uid://d2rg83ictqtiw"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/saw.gd" id="1_1wn87"]
+[ext_resource type="Texture2D" uid="uid://d3dn1wu6y7qg7" path="res://Pixel Adventure 1/Free/Traps/Saw/On (38x38).png" id="1_jqgbu"]
+[ext_resource type="Texture2D" uid="uid://bnw01kkdjjonr" path="res://Pixel Adventure 1/Yellow Effect Bullet Impact Explosion 32x32.png" id="2_lsuv0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu8yo"]
+atlas = ExtResource("2_lsuv0")
+region = Rect2(512, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3verj"]
+atlas = ExtResource("2_lsuv0")
+region = Rect2(544, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tner"]
+atlas = ExtResource("2_lsuv0")
+region = Rect2(576, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op6mn"]
+atlas = ExtResource("2_lsuv0")
+region = Rect2(608, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41er5"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(0, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g20fr"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(38, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ovbs"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(76, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mr3x1"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(114, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgkd1"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(152, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy8mh"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(190, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n0vh"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(228, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7s2e"]
+atlas = ExtResource("1_jqgbu")
+region = Rect2(266, 0, 38, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q5tl8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu8yo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3verj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tner")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op6mn")
+}],
+"loop": false,
+"name": &"die",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41er5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g20fr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ovbs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mr3x1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgkd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy8mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n0vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7s2e")
+}],
+"loop": true,
+"name": &"on",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfbw1"]
+size = Vector2(20, 4.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_reawa"]
+radius = 15.5
+
+[node name="saw" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+collision_layer = 2
+script = ExtResource("1_1wn87")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_q5tl8")
+animation = &"on"
+autoplay = "on"
+
+[node name="collision_with_floor" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.75)
+shape = SubResource("RectangleShape2D_vfbw1")
+
+[node name="raycast_floor_detection" type="RayCast2D" parent="."]
+position = Vector2(20, -7)
+target_position = Vector2(0, 10)
+
+[node name="raycast_wall_detection" type="RayCast2D" parent="."]
+position = Vector2(0, -0.5)
+target_position = Vector2(20, 0)
+
+[node name="damage_zone" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage_zone"]
+shape = SubResource("CircleShape2D_reawa")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="damage_zone" to="." method="_on_damage_zone_area_entered"]
